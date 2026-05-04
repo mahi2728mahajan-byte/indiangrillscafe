@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Indian Grills Cafe</title>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background: #fafafa;
+}
+
+/* NAVBAR */
+nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 30px;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  position: sticky;
+  top: 0;
+}
+
+nav h2 {
+  color: #e23744;
+}
+
+nav ul {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+
+nav li {
+  cursor: pointer;
+}
+
+/* HERO */
+.hero {
+  height: 70vh;
+  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+              url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5') center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+}
+
+.hero h1 {
+  font-size: 42px;
+}
+
+.search-box {
+  margin-top: 20px;
+}
+
+.search-box input {
+  padding: 12px;
+  width: 280px;
+  border-radius: 8px;
+  border: none;
+}
+
+/* MENU CARDS */
+.menu {
+  padding: 40px 20px;
+}
+
+.menu h2 {
+  margin-bottom: 20px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 15px;
+}
+
+.card h3 {
+  margin-bottom: 5px;
+}
+
+.price {
+  color: #e23744;
+  font-weight: bold;
+}
+
+/* CONTACT */
+.contact {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.contact input,
+.contact textarea {
+  width: 100%;
+  max-width: 400px;
+  margin: 10px auto;
+  padding: 10px;
+  display: block;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.contact button {
+  background: #e23744;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #111;
+  color: #aaa;
+}
+
+/* MOBILE */
+@media(max-width: 768px) {
+  nav {
+    flex-direction: column;
+  }
+
+  .hero h1 {
+    font-size: 26px;
+  }
+}
+
+.cart {
+  position: fixed;
+  right: 20px;
+  top: 100px;
+  width: 250px;
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.cart ul {
+  list-style: none;
+  margin: 10px 0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.cart li {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0;
+}
+
+.cart button {
+  background: red;
+  color: white;
+  border: none;
+  padding: 3px 8px;
+  cursor: pointer;
+}
+
+button {
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+.card button {
+  margin-top: 10px;
+  width: 100%;
+  padding: 8px;
+  background: #e23744;
+  color: white;
+  border: none;
+  border-radius: 6px;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <h2>Indian Grills Cafe</h2>
+  <ul>
+    <li onclick="go('menu')">Menu</li>
+    <li onclick="go('contact')">Contact</li>
+  </ul>
+</nav>
+
+
+
+<section class="hero">
+  <div>
+    <h1>Discover Best Food Near You 🍽️</h1>
+    <div class="search-box">
+      <input type="text" placeholder="Search food...">
+    </div>
+  </div>
+</section>
+
+<section class="menu" id="menu">
+  <h2>Popular Dishes</h2>
+  <div class="cards">
+
+    <div class="card">
+  <img src="https://images.unsplash.com/photo-1603894584373-5ac82b2ae398">
+  <div class="card-content">
+    <h3>Paneer Tikka</h3>
+    <p class="price">₹250</p>
+    <button onclick="addToCart('Paneer Tikka',250)">Add to Cart</button>
+  </div>
+</div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1563379091339-03246963d96c">
+      <div class="card-content">
+        <h3>Chicken Biryani</h3>
+        <p class="price">₹300</p>
+        <button onclick="addToCart('Chicken Biryani',300)">Add to Cart</button>
+    
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d">
+      <div class="card-content">
+        <h3>Butter Chicken</h3>
+        <p class="price">₹320</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <h2>Contact Us</h2>
+  <input type="text" id="name" placeholder="Your Name">
+  <textarea id="msg" placeholder="Your Message"></textarea>
+  <button onclick="sendMsg()">Send via WhatsApp</button>
+</section>
+
+<div class="cart">
+  <h3>Your Cart 🛒</h3>
+  <ul id="cart-items"></ul>
+  <h4>Total: ₹<span id="total">0</span></h4>
+  <button onclick="payNow()">Pay Now</button>
+  <button onclick="orderNow()">Order Now</button>
+</div>
+
+<footer>
+  © 2026 Indian Grills Cafe
+</footer>
+
+<script>
+function go(id){
+  document.getElementById(id).scrollIntoView({behavior:'smooth'});
+}
+
+function sendMsg(){
+  let name=document.getElementById("name").value;
+  let msg=document.getElementById("msg").value;
+
+  if(name==""||msg==""){
+    alert("Fill details");
+    return;
+  }
+
+  let url="https://wa.me/918959071271?text="+encodeURIComponent("Name: "+name+"\n"+msg);
+  window.open(url,"_blank");
+}
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let total = 0;
+
+cart.forEach(item => total += item.price);
+updateCart();
+
+function addToCart(name, price) {
+    let existing = cart.find(item => item.name === name);
+
+    if (existing) {
+        existing.qty++;
+    } else {
+        cart.push({name, price, qty: 1});
+    }
+
+    saveCart();
+}
+
+function removeItem(index) {
+    cart.splice(index, 1);
+    saveCart();
+}
+
+function saveCart() {
+    localStorage.setItem("cart", JSON.stringify(cart));
+    total = cart.reduce((sum, item) => sum + item.price, 0);
+    updateCart();
+}
+function updateCart() {
+    let list = document.getElementById("cart-items");
+    list.innerHTML = "";
+
+    total = 0;
+
+    cart.forEach((item, index) => {
+        total += item.price * item.qty;
+
+        let li = document.createElement("li");
+        li.innerHTML = `
+        ${item.name} x${item.qty} - ₹${item.price * item.qty}
+        <button onclick="removeItem(${index})">x</button>`;
+        list.appendChild(li);
+    });
+
+    document.getElementById("total").innerText = total;
+}
+
+const searchInput = document.querySelector(".search-box input");
+
+searchInput.addEventListener("keyup", function () {
+  let value = this.value.toLowerCase();
+  let cards = document.querySelectorAll(".card");
+
+  cards.forEach(card => {
+    let title = card.querySelector("h3").innerText.toLowerCase();
+    card.style.display = title.includes(value) ? "block" : "none";
+  });
+});
+
+function orderNow(){
+    if(cart.length === 0){
+        alert("Cart is empty");
+        return;
+    }
+
+    let message = "🛒 Order Details:\n";
+
+    cart.forEach(item => {
+        message += `${item.name} x${item.qty} = ₹${item.price * item.qty}\n`;
+    });
+
+    message += `\nTotal: ₹${total}`;
+
+    let url = "https://wa.me/918959071271?text=" + encodeURIComponent(message);
+    window.open(url, "_blank");
+}
+
+function payNow(){
+
+  if(cart.length === 0){
+    alert("Cart is empty");
+    return;
+  }
+
+  let options = {
+    key: "YOUR_KEY_ID", // replace this
+    amount: total * 100, // paise
+    currency: "INR",
+    name: "Indian Grills Cafe",
+    description: "Food Order Payment",
+
+    handler: function (response){
+      alert("Payment Successful! ID: " + response.razorpay_payment_id);
+
+      // OPTIONAL: clear cart after payment
+      cart = [];
+      localStorage.removeItem("cart");
+      updateCart();
+    },
+
+    prefill: {
+      name: document.getElementById("name")?.value || "",
+      email: "customer@email.com",
+      contact: "9999999999"
+    },
+
+    theme: {
+      color: "#e23744"
+    }
+  };
+
+  let rzp = new Razorpay(options);
+  rzp.open();
+}
+description: cart.map(item => item.name + " x" + item.qty).join(", ")
+</script>
+</body>
+</html>
